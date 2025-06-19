@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>InboxIQ - Inbox</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ccc; }
+        a { text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+<h2>Your Inbox</h2>
+<table>
+    <tr>
+        <th>Subject</th>
+        <th>Sender</th>
+        <th>Category</th>
+        <th>Received</th>
+    </tr>
+    <tr th:each="email : ${emails}">
+        <td>
+            <a th:href="@{'/email/' + ${email.id}}" th:text="${email.subject}">Subject</a>
+        </td>
+        <td th:text="${email.sender}">Sender</td>
+        <td th:text="${email.category}">Category</td>
+        <td th:text="${email.receivedAt}">Time</td>
+    </tr>
+</table>
+</body>
+</html>
