@@ -46,6 +46,7 @@
 
 package com.inboxiq.service;
 
+import com.inboxiq.ml.EmailClassifier;
 import com.inboxiq.model.Email;
 import com.inboxiq.repository.EmailRepository;
 import jakarta.mail.*;
@@ -61,7 +62,15 @@ import java.util.Properties;
 public class EmailFetcherService {
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private EmailRepository emailRepository;
+
+    @Autowired
+    private Session mailSession;
+
+    private final EmailClassifier classifier = new EmailClassifier();
 
 
     public void fetchUnreadEmails() {
@@ -108,13 +117,18 @@ public class EmailFetcherService {
                 Object content = message.getContent();
                 String body = (content instanceof String) ? (String) content : content.toString();
 
+                String fullText = subject + " " + body;
+
+                String predictedCategory = classifier.classify(fullText);
+
+
                 Email e = new Email();
                 e.setSubject(subject);
                 e.setBody(body);
                 e.setSender(sender);
                 e.setReceivedAt(LocalDateTime.now());
                 e.setRead(false); // unread on fetch
-                e.setCategory("Uncategorized");
+                e.setCategory(predictedCategory);
 
                 emailRepository.save(e);
 
@@ -128,7 +142,7 @@ public class EmailFetcherService {
             store.close();
 
         } catch (Exception e) {
-            System.err.println("❌ Error while reading email: " + e.getMessage());
+            System.err.println(" Error while reading email: " + e.getMessage());
             e.printStackTrace();
         }
     }
