@@ -15,6 +15,6 @@
 <p><strong>Received At:</strong> <span th:text="${email.receivedAt}">Date</span></p>
 <p><strong>Category:</strong> <span th:text="${email.category}">Category</span></p>
 <hr/>
-<p th:text="${email.body}">Email Body</p>
+<p th:utext="${email.body}">Email Body</p>
 </body>
 </html>

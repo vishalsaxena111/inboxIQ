@@ -10,4 +10,5 @@ import java.util.List;
 public interface EmailRepository extends JpaRepository<Email, Long> {
     List<Email> findByCategory(String category);
     List<Email> findAllByOrderByReceivedAtDesc();
+    List<Email> findByCategoryIsNotNull();
 }
