@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>InboxIQ - Categorized Emails</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; }
+        th, td { padding: 8px; }
+    </style>
+</head>
+<body>
+<h2>Categorized Emails</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Subject</th>
+        <th>Sender</th>
+        <th>Received At</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="email : ${emails}">
+        <td th:text="${email.subject}"></td>
+        <td th:text="${email.sender}"></td>
+        <td th:text="${email.receivedAt}"></td>
+        <td th:text="${email.category}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

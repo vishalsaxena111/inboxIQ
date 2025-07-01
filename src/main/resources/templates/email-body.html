@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Email Detail</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .back { margin-bottom: 20px; display: block; }
+    </style>
+</head>
+<body>
+<a class="back" href="/inbox">← Back to Inbox</a>
+
+<h2 th:text="${email.subject}">Email Subject</h2>
+<p><strong>From:</strong> <span th:text="${email.sender}">Sender</span></p>
+<p><strong>Received At:</strong> <span th:text="${email.receivedAt}">Date</span></p>
+<p><strong>Category:</strong> <span th:text="${email.category}">Category</span></p>
+<hr/>
+<p th:utext="${email.body}">Email Body</p>
+</body>
+</html>
